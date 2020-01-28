@@ -7,6 +7,9 @@ class LoginPage extends StatefulWidget{
 
   class _LoginPageState extends State<LoginPage>{
 
+  String _email;
+  String _password;
+
   @override
   Widget build(BuildContext context) {
     
@@ -15,7 +18,19 @@ class LoginPage extends StatefulWidget{
         title: new Text('Fluter login demo'),
       ),
       body: new Container(
-        child: new Text('Hello world'),
+        child: new Form(
+          child: new Column(
+            children: <Widget>[
+              new TextFormField(
+                decoration: new InputDecoration(labelText: 'Email'),
+              ),
+              new TextFormField(
+                decoration: new InputDecoration(labelText: 'Password'),
+              )
+
+            ],
+          ),
+        ),
       ),
     );
   }
