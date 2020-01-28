@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget{
         title: new Text('Fluter login demo'),
       ),
       body: new Container(
+        padding: EdgeInsets.all(16.0),
         child: new Form(
           child: new Column(
             children: <Widget>[
