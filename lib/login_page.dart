@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   void validateAndSubmit() async {
     if (validateAndSave()) {
       try {
+        if(_formtype == Formtype.login){
         AuthResult result = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
         FirebaseUser user = result.user;
@@ -38,6 +39,17 @@ class _LoginPageState extends State<LoginPage> {
                 builder: (context) => Home(
                       user: user,
                     )));
+        }else{
+          AuthResult result = await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: _email, password: _password);
+          FirebaseUser user = result.user;
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Home(
+                    user: user,
+                  )));
+        }
       } catch (e) {
         print('Error: $e');
       }
@@ -45,11 +57,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void moveToRegister() {
+    formkey.currentState.reset();
     setState(() {
       _formtype = Formtype.register;
     });
   }
 void moveToLogin(){
+    formkey.currentState.reset();
   setState(() {
     _formtype = Formtype.login;
   });
@@ -59,7 +73,7 @@ void moveToLogin(){
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Fluter login demo'),
+        title: new Text('Fluter login App'),
       ),
       body: new Container(
         padding: EdgeInsets.all(16.0),
